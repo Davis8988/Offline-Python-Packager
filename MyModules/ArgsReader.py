@@ -40,10 +40,6 @@ def read_args(args_list):
     return True
 
 
-# def get_tasks_names_list(tasks_names_str):
-    # return [x.strip() for x in str(tasks_names_str).split(",")]
-
-
 def log_info(msg=""):
     logging.getLogger(__name__).info(msg)
 
