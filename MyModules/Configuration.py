@@ -6,7 +6,8 @@ import os
 
 log_file = None
 log_level = None
-log_fmt = '%(asctime)s [%(levelname)-5s] %(threadName)s: %(message)s'
+# log_fmt = '%(asctime)s [%(levelname)-5s] %(threadName)s: %(message)s'
+log_fmt = '%(asctime)s [%(levelname)-5s] : %(message)s'
 is_verbose = False
 
 date_today = datetime.now()

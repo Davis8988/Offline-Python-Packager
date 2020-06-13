@@ -8,7 +8,6 @@ from datetime import timedelta
 # Modules
 from MyModules import MyGlobals
 from MyModules import Configuration
-from MyModules import VirtualBox
 
 
 section_task_task_name_name = "TaskName"

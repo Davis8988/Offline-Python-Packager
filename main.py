@@ -31,7 +31,7 @@ def log_error(msg=""):
 
 def configure_console_logger():
     logging.getLogger().setLevel(logging.NOTSET)
-    format_str = Configuration.log_date_fmt
+    format_str = Configuration.log_fmt
     formatter = logging.Formatter(format_str)
 
     console = logging.StreamHandler()
