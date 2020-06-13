@@ -361,15 +361,14 @@ def execute_command(cmnd):
     action_dict = {"Result": True, "MoreInfo": ""}
     log_debug("Executing: {}".format(cmnd))
     try:
-        subprocess.check_call(cmnd)
+        action_dict["MoreInfo"] = subprocess.check_output(cmnd, stderr=subprocess.STDOUT)
     except subprocess.CalledProcessError as error_msg:
         action_dict["Result"] = False
-        action_dict["MoreInfo"] = str(error_msg)
+        action_dict["MoreInfo"] = error_msg
     except BaseException as error_msg:
         log_error("Fatal - ", error_msg, "\nTerminating..")
         terminate_program(1)
     return action_dict
-
 
 
 def log_info(msg=""):

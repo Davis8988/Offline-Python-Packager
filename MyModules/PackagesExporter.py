@@ -57,24 +57,28 @@ def add_package_to_packages_to_export_dict(pkg_str):
 def print_packages_to_export_dict():
     packages_to_export_str = ''
     for py_pkg in packages_to_export:
-        packages_to_export_str += "{}".format(py_pkg.name)
-        packages_to_export_str += "=={}\n".format(py_pkg.version) if py_pkg.version else "\n"
+        packages_to_export_str += "{}\n".format(py_pkg.full_name)
     log_info("Exporting packages:\n{}".format(packages_to_export_str))
 
 
 def export_collected_packages():
     for py_pkg in packages_to_export:
-        export_package(py_pkg.name, py_pkg.version)
+        export_package(py_pkg)
 
 
-def export_package(pkg_name, pkg_version):
-    export_msg = "Exporting package: pkg_name"
-    export_msg += "=={}".format(pkg_version) if pkg_version else export_msg
+def export_package(py_pkg):
+    pkg_name = py_pkg.name
+    pkg_version = py_pkg.version
+    export_msg = "Exporting package: {}".format(py_pkg.full_name)
     log_info(export_msg)
 
-    export_cmnd = "pip download -d \"{}\" {}".format(Configuration.export_to, pkg_name)
-    export_cmnd += "=={}".format(pkg_version) if pkg_version else export_cmnd
-    MyGlobals.execute_command(export_cmnd)
+    export_cmnd = "pip download -d \"{}\" {}".format(Configuration.export_to, py_pkg.full_name)
+    export_result = MyGlobals.execute_command(export_cmnd)
+    if export_result["Result"]:
+        log_info("Successfully downloaded {}".format(py_pkg.full_name))
+        py_pkg.exported = True
+    else:
+        log_error(export_result["MoreInfo"].output.decode("utf-8"))
 
 
 def log_info(msg=""):
