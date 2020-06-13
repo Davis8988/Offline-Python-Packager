@@ -45,12 +45,12 @@ def init():
     global log_file
 
     # Expand env variables if any
-    export_packages = MyGlobals.remove_surrounding_quotes(MyGlobals.expand_variable(export_packages)).strip()
-    export_to = MyGlobals.remove_surrounding_quotes(MyGlobals.expand_variable(export_to)).strip()
-    import_packages = MyGlobals.remove_surrounding_quotes(MyGlobals.expand_variable(import_packages)).strip()
-    import_from = MyGlobals.remove_surrounding_quotes(MyGlobals.expand_variable(import_from)).strip()
-    import_to = MyGlobals.remove_surrounding_quotes(MyGlobals.expand_variable(import_to)).strip()
-    log_file = MyGlobals.remove_surrounding_quotes(MyGlobals.expand_variable(log_file)).strip()
+    export_packages = MyGlobals.remove_surrounding_quotes(MyGlobals.expand_variable(export_packages)).strip() if export_packages else export_packages
+    export_to = MyGlobals.remove_surrounding_quotes(MyGlobals.expand_variable(export_to)).strip() if export_to else export_to
+    import_packages = MyGlobals.remove_surrounding_quotes(MyGlobals.expand_variable(import_packages)).strip() if import_packages else import_packages
+    import_from = MyGlobals.remove_surrounding_quotes(MyGlobals.expand_variable(import_from)).strip() if import_from else import_from
+    import_to = MyGlobals.remove_surrounding_quotes(MyGlobals.expand_variable(import_to)).strip() if import_to else import_to
+    log_file = MyGlobals.remove_surrounding_quotes(MyGlobals.expand_variable(log_file)).strip() if log_file else log_file
 
 
 def log_info(msg=""):

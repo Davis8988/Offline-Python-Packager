@@ -1,6 +1,7 @@
 # This module contains global functions to be used by other scripts
 
 import os
+import subprocess
 import sys
 import shutil
 import logging
@@ -354,6 +355,21 @@ def get_files_list_flat(files_path):
         action_dict["Result"] = False
         action_dict["MoreInfo"] = str(error_msg)
     return action_dict
+
+
+def execute_command(cmnd):
+    action_dict = {"Result": True, "MoreInfo": ""}
+    log_debug("Executing: {}".format(cmnd))
+    try:
+        subprocess.check_call(cmnd)
+    except subprocess.CalledProcessError as error_msg:
+        action_dict["Result"] = False
+        action_dict["MoreInfo"] = str(error_msg)
+    except BaseException as error_msg:
+        log_error("Fatal - ", error_msg, "\nTerminating..")
+        terminate_program(1)
+    return action_dict
+
 
 
 def log_info(msg=""):

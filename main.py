@@ -42,8 +42,8 @@ def configure_console_logger():
 
 def add_log_file_logging():
     log_debug("Logging to file: {}".format(Configuration.log_file))
-    format_str = Configuration.log_date_fmt
-    formatter = logging.Formatter(format_str, datefmt=Configuration.log_date_fmt)
+    format_str = Configuration.log_fmt
+    formatter = logging.Formatter(format_str, datefmt=Configuration.log_fmt)
 
     f_handler = logging.FileHandler(Configuration.log_file, mode='w')
     f_handler.setLevel(logging.NOTSET)

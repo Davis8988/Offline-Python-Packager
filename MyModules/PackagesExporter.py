@@ -17,6 +17,7 @@ def export_packages():
     for packages_src in export_list:
         collect_packages_to_export(packages_src.strip())
     print_packages_to_export_dict()
+    export_collected_packages()
 
 
 def collect_packages_to_export(packages_src):
@@ -59,8 +60,24 @@ def print_packages_to_export_dict():
             packages_to_export_str += "=={}".format(v)
         packages_to_export_str += "\n"
     log_info("Exporting packages:\n{}".format(packages_to_export_str))
-    log_info("export_to = {}".format(Configuration.export_to))
-    log_info("import_from = {}".format(Configuration.import_from))
+
+
+def export_collected_packages():
+    for pkg_name, pkg_version in packages_to_export.items():
+        export_package(pkg_name, pkg_version)
+
+
+def export_package(pkg_name, pkg_version):
+    export_msg = "Exporting package: pkg_name"
+    export_msg += "=={}".format(pkg_version) if pkg_version else export_msg
+    log_info(export_msg)
+
+    export_cmnd = "pip download -d \"{}\" {}".format(Configuration.export_to, pkg_name)
+    export_cmnd += "=={}".format(pkg_version) if pkg_version else export_cmnd
+    MyGlobals.execute_command(export_cmnd)
+
+
+
 
 def log_info(msg=""):
     logging.getLogger(__name__).info(msg)
