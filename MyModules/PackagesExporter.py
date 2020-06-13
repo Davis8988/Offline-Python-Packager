@@ -25,6 +25,7 @@ def collect_packages_to_export(packages_src):
         return
 
     if MyGlobals.is_file(packages_src):
+        log_debug("Reading packages from file: {}".format(packages_src))
         action_dict = MyGlobals.read_file_lines_as_list(packages_src)
         if not action_dict["Result"]:
             MyGlobals.terminate_program(1)
@@ -58,7 +59,8 @@ def print_packages_to_export_dict():
             packages_to_export_str += "=={}".format(v)
         packages_to_export_str += "\n"
     log_info("Exporting packages:\n{}".format(packages_to_export_str))
-
+    log_info("export_to = {}".format(Configuration.export_to))
+    log_info("import_from = {}".format(Configuration.import_from))
 
 def log_info(msg=""):
     logging.getLogger(__name__).info(msg)

@@ -35,7 +35,10 @@ def read_args(args_list):
 
     Configuration.is_verbose = received_args.verbose
     Configuration.export_packages = received_args.export_packages
+    Configuration.export_to = received_args.export_to
     Configuration.import_packages = received_args.import_packages
+    Configuration.import_from = received_args.import_from
+    Configuration.import_to = received_args.import_to
     Configuration.log_file = received_args.log_file
 
     log_debug("Finished reading args successfully")
