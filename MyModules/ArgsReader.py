@@ -12,7 +12,7 @@ from MyModules import MyGlobals
 parser = argparse.ArgumentParser(description='Offline Exporter & Importer for python packages')
 parser.add_argument("-ep", "--export_pacakges", dest="export_packages", help='Export packages that match pattern. Pass "*" for exporting all packages', nargs='?', default=None, const="*")
 parser.add_argument("-et", "--export_to", dest="export_to", help="Export packages to this path", nargs='?', default="${OFFLINE_PYTHON_PACKAGER_HOME}\\exported_packages", const="${OFFLINE_PYTHON_PACKAGER_HOME}\\exported_packages")
-parser.add_argument("-ip", "--import_pacakges", dest="import_packages", help='Import packages that match pattern. Pass "*" for importing all packages', nargs='?', default="*", const="*")
+parser.add_argument("-ip", "--import_pacakges", dest="import_packages", help='Import packages that match pattern. Pass "*" for importing all packages', nargs='?', default=None, const="*")
 parser.add_argument("-if", "--import_from", dest="import_from", help='Import python packages from this path', nargs='?', default="${OFFLINE_PYTHON_PACKAGER_HOME}\\exported_packages", const="${OFFLINE_PYTHON_PACKAGER_HOME}\\exported_packages")
 parser.add_argument("-it", "--import_to", dest="import_to", help='Import python packages to this path', nargs='?', default=None, const=None)
 parser.add_argument("-l", "--log_file", help="File path to write logs to", nargs='?', default=None, const=None,)
