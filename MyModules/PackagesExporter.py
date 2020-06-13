@@ -8,8 +8,9 @@ from datetime import timedelta
 # Modules
 from MyModules import MyGlobals
 from MyModules import Configuration
+from MyModules.PythonPackge import PyPackage
 
-packages_to_export = {}
+packages_to_export = []
 
 
 def export_packages():
@@ -41,30 +42,29 @@ def add_packages_list_to_packages_to_export_dict(packages_list):
         add_package_to_packages_to_export_dict(pkg)
 
 
-def add_package_to_packages_to_export_dict(pkg):
+def add_package_to_packages_to_export_dict(pkg_str):
     global packages_to_export
-    pkg = str(pkg).strip().lower()
-    pkg_arr = [pkg, None]
-    if "==" in pkg:
-        pkg_arr = [x.strip() for x in pkg.split("==")]
+    pkg_str = str(pkg_str).strip().lower()
+    pkg_arr = [pkg_str, None]
+    if "==" in pkg_str:
+        pkg_arr = [x.strip() for x in pkg_str.split("==")]
     pkg_name = pkg_arr[0]
     pkg_version = pkg_arr[1]
-    packages_to_export[pkg_name] = pkg_version
+    py_pkg = PyPackage(pkg_name, pkg_version)
+    packages_to_export.append(py_pkg)
 
 
 def print_packages_to_export_dict():
     packages_to_export_str = ''
-    for k, v in packages_to_export.items():
-        packages_to_export_str += "{}".format(k)
-        if v:
-            packages_to_export_str += "=={}".format(v)
-        packages_to_export_str += "\n"
+    for py_pkg in packages_to_export:
+        packages_to_export_str += "{}".format(py_pkg.name)
+        packages_to_export_str += "=={}\n".format(py_pkg.version) if py_pkg.version else "\n"
     log_info("Exporting packages:\n{}".format(packages_to_export_str))
 
 
 def export_collected_packages():
-    for pkg_name, pkg_version in packages_to_export.items():
-        export_package(pkg_name, pkg_version)
+    for py_pkg in packages_to_export:
+        export_package(py_pkg.name, py_pkg.version)
 
 
 def export_package(pkg_name, pkg_version):
@@ -75,8 +75,6 @@ def export_package(pkg_name, pkg_version):
     export_cmnd = "pip download -d \"{}\" {}".format(Configuration.export_to, pkg_name)
     export_cmnd += "=={}".format(pkg_version) if pkg_version else export_cmnd
     MyGlobals.execute_command(export_cmnd)
-
-
 
 
 def log_info(msg=""):
