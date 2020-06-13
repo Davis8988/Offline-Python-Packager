@@ -30,10 +30,10 @@ def copy_file(src_path, dest_path):
     action_dict = {"Result" : True, "MoreInfo" : ""}
     try:
         shutil.copy2(src_path, dest_path)
-    except BaseException as errorMsg:
-        log_error("Error - Failed to copy file '{}' to: '{}'\n{}".format(src_path, dest_path, errorMsg))
+    except BaseException as error_msg:
+        log_error("Error - Failed to copy file '{}' to: '{}'\n{}".format(src_path, dest_path, error_msg))
         action_dict['Result'] = False
-        action_dict['MoreInfo'] = errorMsg
+        action_dict['MoreInfo'] = error_msg
     return action_dict
 
 
@@ -63,14 +63,14 @@ def copy_dir(src_path, dest_path, exclude=None, include=None):
                     if not remove_result['Result']:
                         return remove_result
                 shutil.copytree(src, dst, ignore=include_or_exclude)
-        except BaseException as errorMsg:
-            log_error("Error - Failed to copy2 dir '{}' to: '{}'\n{}".format(src_path, dest_path, errorMsg))
+        except BaseException as error_msg:
+            log_error("Error - Failed to copy2 dir '{}' to: '{}'\n{}".format(src_path, dest_path, error_msg))
             action_dict['Result'] = False
-            action_dict['MoreInfo'] = errorMsg
-    except BaseException as errorMsg:
-        log_error("Error - Failed to copy dir '{}' to: '{}'\n{}".format(src_path, dest_path, errorMsg))
+            action_dict['MoreInfo'] = error_msg
+    except BaseException as error_msg:
+        log_error("Error - Failed to copy dir '{}' to: '{}'\n{}".format(src_path, dest_path, error_msg))
         action_dict['Result'] = False
-        action_dict['MoreInfo'] = errorMsg
+        action_dict['MoreInfo'] = error_msg
     return action_dict
 
 
@@ -115,18 +115,18 @@ def my_copytree(src, dst, symlinks=True, ignore=None):
                 return errors
             else:
                 shutil.copy2(srcname, dstname)
-        except (IOError, os.error) as errorMsg:
-            log_debug(str(errorMsg))
-            errors.append((srcname, dstname, str(errorMsg)))
-        except shutil.Error as errorMsg:
-            errors.extend(errorMsg.args[0])
+        except (IOError, os.error) as error_msg:
+            log_debug(str(error_msg))
+            errors.append((srcname, dstname, str(error_msg)))
+        except shutil.Error as error_msg:
+            errors.extend(error_msg.args[0])
     try:
         shutil.copystat(src, dst)
     except WindowsError:
         pass
-    except OSError as errorMsg:
-        log_debug(str(errorMsg))
-        errors.append((src, dst, str(errorMsg)))
+    except OSError as error_msg:
+        log_debug(str(error_msg))
+        errors.append((src, dst, str(error_msg)))
 
     return errors
 
@@ -141,56 +141,56 @@ def convert_copy_err_list_to_table(errors):
 def expand_variable(variable):
     try:
         return os.path.expandvars(variable)
-    except BaseException as errorMsg:
-        log_error("Error - Failed to expand variable: {}\n{}".format(variable, errorMsg))
+    except BaseException as error_msg:
+        log_error("Error - Failed to expand variable: {}\n{}".format(variable, error_msg))
     return None
 
 
 def file_exists(file_path):
     try:
         return os.path.isfile(file_path)
-    except BaseException as errorMsg:
-        print("Error - Failed checking if file exists at: {}\n{}".format(file_path, errorMsg))
+    except BaseException as error_msg:
+        print("Error - Failed checking if file exists at: {}\n{}".format(file_path, error_msg))
     return False
 
 
-def is_file(filePath):
-    return file_exists(filePath)
+def is_file(file_path):
+    return file_exists(file_path)
 
 
-def exists(somePath):
+def exists(some_path):
     try:
-        return os.path.exists(somePath)
-    except BaseException as errorMsg:
-        log_error("Error - Failed checking if path exists at: {}\n{}".format(somePath, errorMsg))
+        return os.path.exists(some_path)
+    except BaseException as error_msg:
+        log_error("Error - Failed checking if path exists at: {}\n{}".format(some_path, error_msg))
     return False
 
 
-def dir_exists(dirPath):
+def dir_exists(dir_path):
     try:
-        return os.path.isdir(dirPath)
-    except BaseException as errorMsg:
-        log_error("Error - Failed checking if dir exists at: {}\n{}".format(dirPath, errorMsg))
+        return os.path.isdir(dir_path)
+    except BaseException as error_msg:
+        log_error("Error - Failed checking if dir exists at: {}\n{}".format(dir_path, error_msg))
     return False
 
 
-def is_dir(dirPath):
-    return dir_exists(dirPath)
+def is_dir(dir_path):
+    return dir_exists(dir_path)
 
 
-def remove_surrounding_quotes(someStr):
-    return str(someStr).strip().strip("\"")
+def remove_surrounding_quotes(some_str):
+    return str(some_str).strip().strip("\"")
 
 
-def remove_dir(dirPath):
+def remove_dir(dir_path):
     action_dict = {"Result": True, "MoreInfo": ""}
     try:
-        log_debug("Removing dir: {}".format(dirPath))
-        shutil.rmtree(dirPath, onerror=rmtree_onerror_handlling)
-    except BaseException as errorMsg:
-        log_error("Error - Failed removing dir at: {}\n{}".format(dirPath, errorMsg))
+        log_debug("Removing dir: {}".format(dir_path))
+        shutil.rmtree(dir_path, onerror=rmtree_onerror_handlling)
+    except BaseException as error_msg:
+        log_error("Error - Failed removing dir at: {}\n{}".format(dir_path, error_msg))
         action_dict['Result'] = False
-        action_dict['MoreInfo'] = errorMsg
+        action_dict['MoreInfo'] = error_msg
     return action_dict
 
 
@@ -224,8 +224,8 @@ def rmtree_onerror_handlling(func, path, exc_info):
                 shutil.rmtree(path)
                 os_error = False  # If shutil.rmtree() succeeded then no need to stay in the loop
                 retries = retries - 1
-            except OSError as errorMsg:
-                if errorMsg.errno == os_error_directory_not_empty_error_number or errorMsg.errno == os_error_directory_not_empty_error_number:
+            except OSError as error_msg:
+                if error_msg.errno == os_error_directory_not_empty_error_number or error_msg.errno == os_error_directory_not_empty_error_number:
                     pass
                 else:
                     raise
@@ -234,30 +234,31 @@ def rmtree_onerror_handlling(func, path, exc_info):
     else:
         raise
 
-def remove_file(filePath):
+
+def remove_file(file_path):
     action_dict = {"Result": True, "MoreInfo": ""}
     try:
-        log_debug("Removing file: {}".format(filePath))
-        os.remove(filePath)
-    except BaseException as errorMsg:
-        log_error("Error - Failed removing file at: {}\n{}".format(filePath, errorMsg))
+        log_debug("Removing file: {}".format(file_path))
+        os.remove(file_path)
+    except BaseException as error_msg:
+        log_error("Error - Failed removing file at: {}\n{}".format(file_path, error_msg))
         action_dict['Result'] = False
-        action_dict['MoreInfo'] = errorMsg
+        action_dict['MoreInfo'] = error_msg
     return action_dict
 
 
-def create_dir(dirPath):
+def create_dir(dir_path):
     action_dict = {"Result": True, "MoreInfo": ""}
     try:
-        os.makedirs(dirPath)
-        action_dict["MoreInfo"] = dirPath
+        os.makedirs(dir_path)
+        action_dict["MoreInfo"] = dir_path
     except FileExistsError:
         print("Dir exists..")
         pass
-    except BaseException as errorMsg:
-        log_error("Error - Failed creating dir at: {}\n{}".format(dirPath, errorMsg))
+    except BaseException as error_msg:
+        log_error("Error - Failed creating dir at: {}\n{}".format(dir_path, error_msg))
         action_dict['Result'] = False
-        action_dict['MoreInfo'] = errorMsg
+        action_dict['MoreInfo'] = error_msg
     return action_dict
 
 
@@ -281,22 +282,39 @@ def convert_and_expand_str_to_dictionary(some_string):
     return literal_eval(some_string_expanded)
 
 
-def get_files_from_path(path_str):
+def get_files_list_from_path(path_str):
     action_dict = {"Result": True, "MoreInfo": ""}
     try:
         files_list = glob(path_str)
         action_dict["MoreInfo"] = files_list
-    except BaseException as errorMsg:
-        log_error(errorMsg)
+    except BaseException as error_msg:
+        log_error(error_msg)
         action_dict["Result"] = False
-        action_dict["MoreInfo"] = str(errorMsg)
+        action_dict["MoreInfo"] = str(error_msg)
     return action_dict
+
+
+def read_file_lines_as_list(file_path):
+    action_dict = {"Result": True, "MoreInfo": ""}
+    with open(file_path, 'r') as file:
+        try:
+            file_content = file.read().splitlines()
+            action_dict["MoreInfo"] = file_content
+        except (OSError, IOError) as error_msg:
+            log_error(error_msg)
+            action_dict["Result"] = False
+            action_dict["MoreInfo"] = str(error_msg)
+        except BaseException as error_msg:
+            log_error("Fatal - ", error_msg, "\nTerminating..")
+            terminate_program(1)
+    return action_dict
+
 
 def sleep(sec):
     try:
         time.sleep(sec)
-    except BaseException as errorMsg:
-        log_error(errorMsg)
+    except BaseException as error_msg:
+        log_error(error_msg)
     return
 
 
@@ -318,23 +336,23 @@ def include_patterns(*patterns):
     return _ignore_patterns
 
 
-def terminateProgram(exitCode, msg=""):
+def terminate_program(exit_code, msg=""):
     if msg:
         print(msg)
-    sys.exit(exitCode)
+    sys.exit(exit_code)
 
 
-def fetch_local_files_flat(local_path):
+def get_files_list_flat(files_path):
     """Fetches a flat file list of a directory"""
     action_dict = {"Result": True, "MoreInfo": ""}
     try:
-        if is_file(local_path):
-            action_dict["MoreInfo"] = [local_path]
+        if is_file(files_path):
+            action_dict["MoreInfo"] = [files_path]
         else:
-            action_dict["MoreInfo"] = [os.path.join(local_path,x) for x in os.listdir(local_path)]
-    except BaseException as errorMsg:
+            action_dict["MoreInfo"] = [os.path.join(files_path,x) for x in os.listdir(files_path)]
+    except BaseException as error_msg:
         action_dict["Result"] = False
-        action_dict["MoreInfo"] = str(errorMsg)
+        action_dict["MoreInfo"] = str(error_msg)
     return action_dict
 
 

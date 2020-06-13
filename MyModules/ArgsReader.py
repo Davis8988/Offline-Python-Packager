@@ -28,10 +28,10 @@ def read_args(args_list):
     try:
         received_args = parser.parse_args()
     except SystemExit as errorCode:
-        MyGlobals.terminateProgram(errorCode)
+        MyGlobals.terminate_program(errorCode)
     except BaseException as errorMsg:
         log_error("Error - Failed to parse received args: {}\n{}".format(args_list, errorMsg))
-        MyGlobals.terminateProgram(1)
+        MyGlobals.terminate_program(1)
 
     Configuration.is_verbose = received_args.verbose
     Configuration.export_packages = received_args.export_packages

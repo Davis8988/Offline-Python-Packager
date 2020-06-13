@@ -66,13 +66,13 @@ def main():
         add_log_file_logging()
 
     # Main dish
-    if ArgsReader.received_args.get("export", None):
-        PackagesExporter.exportPackages()
-    if ArgsReader.received_args.get("import", None):
-        PackagesImporter.importPackages()
+    if Configuration.export_packages:
+        PackagesExporter.export_packages()
+    if Configuration.import_packages:
+        PackagesImporter.import_packages()
 
     # Finish successfully
-    MyGlobals.terminateProgram(0)
+    MyGlobals.terminate_program(0)
 
 
 # Start
