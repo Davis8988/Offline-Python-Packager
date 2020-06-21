@@ -40,11 +40,11 @@ Say you want to move all your installed packages to an offline env. Execute:
 python3 main.py --export_packages  
 ```  
 Your packages will be waiting at: `./exported_packages`.  
-Move that dir to your offline env, and install the exported packages by executing:  
+Copy **exported_packages** dir to your offline env, and install the exported packages by executing:  
 ```python
 python3 main.py --import_packages  
 ```  
-You can export specific packages and then install them:  
+You can export **specific packages** and then install them:  
 ```python  
 # Export
 python3 main.py --export_packages "cffi,tornado" --export_to "/opt/sources/my_packages"  
@@ -52,7 +52,7 @@ python3 main.py --export_packages "cffi,tornado" --export_to "/opt/sources/my_pa
 # Import
 python3 main.py --import_packages "cffi,tornado" --import_from "/opt/sources/my_packages"  
 ```  
-Export using requirements.txt file  
+Export using **requirements.txt** file  
 ```python  
 # Export
 python3 main.py --export_packages "/opt/sources/requirements.txt" --export_to "/opt/sources/my_packages"  
