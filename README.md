@@ -87,10 +87,10 @@ If executing from Bash then you need to escape the env var:
 
 
 ## Test
-Quick test windows batch script at: [RunTests](tests/RunTests.bat)
+Quick test windows batch script at: [tests/RunTests](tests/RunTests.bat)
 
 ## PyInstaller
-To pack this tool into one windows executable run script: [Compile_Exe](pyinstaller/Compile_Exe.bat)
+To pack this tool into one windows executable run script: [pyinstaller/Compile_Exe](pyinstaller/Compile_Exe.bat)
 
 ## Examples
 
