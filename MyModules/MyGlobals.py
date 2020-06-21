@@ -10,6 +10,10 @@ import distutils
 from distutils import dir_util
 from ast import literal_eval
 from glob import glob
+import posixpath
+import json
+
+
 
 # Modules
 from MyModules import Configuration
@@ -284,15 +288,11 @@ def convert_and_expand_str_to_dictionary(some_string):
 
 
 def get_files_list_from_path(path_str):
-    action_dict = {"Result": True, "MoreInfo": ""}
     try:
-        files_list = glob(path_str)
-        action_dict["MoreInfo"] = files_list
+        return glob(path_str)
     except BaseException as error_msg:
         log_error(error_msg)
-        action_dict["Result"] = False
-        action_dict["MoreInfo"] = str(error_msg)
-    return action_dict
+        terminate_program(1)
 
 
 def read_file_lines_as_list(file_path):
@@ -306,7 +306,7 @@ def read_file_lines_as_list(file_path):
             action_dict["Result"] = False
             action_dict["MoreInfo"] = str(error_msg)
         except BaseException as error_msg:
-            log_error("Fatal - ", error_msg, "\nTerminating..")
+            log_error("Fatal - {}\n{}".format(error_msg, "Terminating.."))
             terminate_program(1)
     return action_dict
 
@@ -343,32 +343,66 @@ def terminate_program(exit_code, msg=""):
     sys.exit(exit_code)
 
 
-def get_files_list_flat(files_path):
-    """Fetches a flat file list of a directory"""
-    action_dict = {"Result": True, "MoreInfo": ""}
-    try:
-        if is_file(files_path):
-            action_dict["MoreInfo"] = [files_path]
-        else:
-            action_dict["MoreInfo"] = [os.path.join(files_path,x) for x in os.listdir(files_path)]
-    except BaseException as error_msg:
-        action_dict["Result"] = False
-        action_dict["MoreInfo"] = str(error_msg)
-    return action_dict
-
-
 def execute_command(cmnd):
     action_dict = {"Result": True, "MoreInfo": ""}
     log_debug("Executing: {}".format(cmnd))
     try:
-        action_dict["MoreInfo"] = subprocess.check_output(cmnd, stderr=subprocess.STDOUT)
+        action_dict["MoreInfo"] = subprocess.check_output(cmnd, stderr=subprocess.STDOUT, shell=True)
     except subprocess.CalledProcessError as error_msg:
         action_dict["Result"] = False
         action_dict["MoreInfo"] = error_msg
     except BaseException as error_msg:
-        log_error("Fatal - ", error_msg, "\nTerminating..")
+        log_error("Fatal - {}\n{}".format(error_msg, "Terminating.."))
         terminate_program(1)
     return action_dict
+
+
+def list_subtract(list_a, list_b):
+    if list_b is None:
+        return list_a
+    return [item for item in list_a if item not in list_b]
+
+
+def write_json_file(data, json_file_path):
+    action_dict = {"Result": True, "MoreInfo": ""}
+    try:
+        with open(json_file_path, 'w', encoding=Configuration.json_file_data_fmt) as outfile:
+            json.dump(data, outfile, ensure_ascii=False, indent=4)
+    except BaseException as error_msg:
+        log_error(error_msg)
+        terminate_program(1)
+    return action_dict
+
+
+def read_json_file(json_file_path):
+    action_dict = {"Result": True, "MoreInfo": ""}
+    try:
+        with open(json_file_path, 'r') as f:
+            data = json.load(f)
+            action_dict["MoreInfo"] = data
+    except BaseException as error_msg:
+        log_error(error_msg)
+        action_dict["Result"] = False
+        action_dict["MoreInfo"] = error_msg
+    return action_dict
+
+
+def fetch_local_files_flat(local_path):
+    """Fetches a flat file list of a directory"""
+    action_dict = {"Result": True, "MoreInfo": ""}
+    try:
+        if is_file(local_path):
+            action_dict["MoreInfo"] = [local_path]
+        else:
+            action_dict["MoreInfo"] = [os.path.join(local_path,x) for x in os.listdir(local_path)]
+    except BaseException as errorMsg:
+        action_dict["Result"] = False
+        action_dict["MoreInfo"] = str(errorMsg)
+    return action_dict
+
+
+def convert_windows_path_to_linux(win_path):
+    return posixpath.join(*win_path.split('\\'))
 
 
 def log_info(msg=""):
