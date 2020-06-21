@@ -18,7 +18,7 @@ echo.
 echo Testing %appName%
 
 :: Check
-if not exist "%packagerExe%" echo Error - Missing or unreachable "%packagerExe%" && echo Please first compile an exe using pyinstaller && compiling script at: %~dp0..\pyinstaller\Compile_Exe.bat && pause && exit 1
+if not exist "%packagerExe%" echo Error - Missing or unreachable "%packagerExe%" && echo Please first compile an exe using pyinstaller && echo compiling script at: %~dp0..\pyinstaller\Compile_Exe.bat && pause && exit 1
 where pip || echo Error - Missing pip from system path && echo Cannot start tests without it && echo please install python first && pause && exit 1
 
 :: Pre
