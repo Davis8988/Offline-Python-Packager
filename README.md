@@ -3,8 +3,11 @@ Export and then Import your python packages to an offline environment from a dir
 Define a local directory that will serves as a python-packages repo index for your offline pacakges installations.    
 See [examples](#Examples) below
 
+
 ## Usage
 ```
+python3 main.py --help  
+
 usage: main.py [-h] [-ep [EXPORT_PACKAGES]] [-et [EXPORT_TO]]
                [-ip [IMPORT_PACKAGES]] [-if [IMPORT_FROM]]
                [-pip [PIP_EXECUTABLE]] [-epa [EXTRA_PIP_ARGS]] [-l [LOG_FILE]]
@@ -32,6 +35,32 @@ optional arguments:
 
 ```
 
+Say you want to move all your installed packages to an offline env. Execute:  
+```
+python3 main.py -ep  
+```  
+Your packages will be waiting at: `./exported_packages`.  
+Move that dir to your offline env, and install the exported packages by executing:  
+```
+python3 main.py -ip  
+```  
+You can export specific packages and then install them:  
+```  
+# Export
+python3 main.py -ep "cffi,tornado" -et "/opt/sources/my_packages"  
+  
+# Import - Note the **-et**, **-if** flags to point the exported packages dir  
+python3 main.py -ip "cffi,tornado" -if "/opt/sources/my_packages"  
+```  
+Export using requirements.txt file  
+```  
+# Export
+python3 main.py -ep "/opt/sources/requirements.txt" -et "/opt/sources/my_packages"  
+  
+# Import  
+python3 main.py -ip "/opt/sources/requirements.txt" -if "/opt/sources/my_packages"  
+```
+ 
 
 ## Special Envs
 You can use these special env vars that are defined during the app's execution:  
