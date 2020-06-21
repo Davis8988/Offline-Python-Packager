@@ -35,8 +35,8 @@ optional arguments:
 
 ## Special Envs
 You can use these special env vars that are defined during the app's execution:  
-- `OFFLINE_PYTHON_PACKAGER_HOME` - Path to executable dir. If main.py script is located ar: "C:\\Git\\Offline-Python-Packager\\main.py" then OFFLINE_PYTHON_PACKAGER_HOME=C:\\Git\\Offline-Python-Packager  
-- `OFFLINE_PYTHON_PACKAGER_EXECUTABLE` - Path to executable file. If main.py script is located ar: "C:\\Git\\Offline-Python-Packager\\main.py" then OFFLINE_PYTHON_PACKAGER_HOME=C:\\Git\\Offline-Python-Packager\\main.py  
+- **`OFFLINE_PYTHON_PACKAGER_HOME`** - Path to executable dir. If main.py script is located ar: "C:\\Git\\Offline-Python-Packager\\main.py" then OFFLINE_PYTHON_PACKAGER_HOME=C:\\Git\\Offline-Python-Packager  
+- **`OFFLINE_PYTHON_PACKAGER_EXECUTABLE`** - Path to executable file. If main.py script is located ar: "C:\\Git\\Offline-Python-Packager\\main.py" then OFFLINE_PYTHON_PACKAGER_HOME=C:\\Git\\Offline-Python-Packager\\main.py  
   
 Sample usage as a parameter: **"${OFFLINE_PYTHON_PACKAGER_HOME}"**  
 Example:  
