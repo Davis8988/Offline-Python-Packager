@@ -48,6 +48,9 @@ If executing from Bash then you need to escape the env var:
 
 ## Requirements
 
+#### Python
+* At least v3
+
 #### libs
 * tabulate
 * pip2pi
