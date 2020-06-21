@@ -49,7 +49,7 @@ You can export specific packages and then install them:
 # Export
 python3 main.py -ep "cffi,tornado" -et "/opt/sources/my_packages"  
   
-# Import - Note the **-et**, **-if** flags to point the exported packages dir  
+# Import - Note the -et, -if flags to point the exported packages dir  
 python3 main.py -ip "cffi,tornado" -if "/opt/sources/my_packages"  
 ```  
 Export using requirements.txt file  
