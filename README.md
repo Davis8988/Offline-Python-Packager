@@ -1,5 +1,5 @@
 # Offline-Python-Packager
-Export and then Import your python packages to an offline environment from a directory.
+Export and then Import your python packages to an offline environment from a directory.  
 Define a local directory that will serves as a python-packages repo index for your offline pacakges installations.    
 See [examples](#Examples) below
 
