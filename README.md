@@ -121,4 +121,4 @@ packages.txt is next to main.py
 
 
 ## Credits
-David Wolever | https://github.com/wolever/pip2pi based on the awesome work of @wolever 
+David Wolever | https://github.com/wolever/pip2pi based on the awesome work [pip2pi](https://pypi.org/project/pip2pi/) of @wolever 
