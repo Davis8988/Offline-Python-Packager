@@ -40,7 +40,7 @@ Say you want to move all your installed packages to an offline env. Execute:
 python3 main.py --export_packages  
 ```  
 Your packages will be waiting at: `./exported_packages`.  
-Copy **exported_packages** dir to your offline env, and install the exported packages by executing:  
+Copy **exported_packages** dir and this script to your offline env, and install the exported packages by executing:  
 ```python
 python3 main.py --import_packages  
 ```  
