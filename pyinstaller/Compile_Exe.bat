@@ -11,8 +11,7 @@ set pyinstallerArgs=-i "%iconFile%" --name "%pythonScriptName%" --distpath "%out
 set confFile=%~dp0..\Conf.ini
 
 rem Checks
-where pyinstaller
-if %errorlevel% neq 0 echo Error - Cannot compile your script to an exe without 'pyinstaller.exe' in the path variable of this machine && echo Install it by executing: 'pip install pyinstaller' && pause && exit 1
+where pyinstaller || echo Error - Cannot compile your script to an exe without 'pyinstaller.exe' in the path variable of this machine && echo Install it by executing: 'pip install pyinstaller' && pause && exit 1
 if not exist "%iconFile%" echo Error - Missing or unreachable: "%iconFile%" && pause && exit 1
 if not exist "%pythonScriptFilePath%" echo Error - Missing or unreachable: "%pythonScriptFilePath%" && pause && exit 1
 
